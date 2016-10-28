@@ -212,9 +212,10 @@ public class AutoViewPager extends RelativeLayout implements
     }
 
     public void play() {
-        if (!mIsStart) return;
-        mIsPlaying = true;
-        mHandler.sendMessageDelayed(obtainMsg(), mIntervalTime);
+        if (mIsStart && !mIsPlaying) {
+            mIsPlaying = true;
+            mHandler.sendMessageDelayed(obtainMsg(), mIntervalTime);
+        }
     }
 
     @Override
@@ -225,9 +226,10 @@ public class AutoViewPager extends RelativeLayout implements
     }
 
     public void pause() {
-        if (!mIsStart) return;
-        mHandler.removeMessages(0);
-        mIsPlaying = false;
+        if (mIsStart && mIsPlaying) {
+            mHandler.removeMessages(0);
+            mIsPlaying = false;
+        }
     }
 
     @Override
